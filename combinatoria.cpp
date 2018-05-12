@@ -27,7 +27,7 @@ int main() {
     unsigned int m, n, cantidadn;
     double resultado;
     char opcion, opcion2;
-    cout << "Programa de combinatoria" << endl;
+    cout << "Combinatoria" << endl;
     cout << "¿(p)ermutaciones, (v)ariaciones o (c)ombinaciones?." << endl;
     cout << "=> ";
     cin >> opcion;
