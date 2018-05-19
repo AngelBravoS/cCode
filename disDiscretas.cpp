@@ -44,15 +44,13 @@ double hipergeometrica(unsigned short int N, unsigned short int n,
 		unsigned short int r, unsigned short int probabilidad);	
 double poisson(float p, unsigned short int probabilidad);	
 double geometrica(float p, unsigned short int probabilidad);
-
+double multinomial(unsigned short int n, float p, 
+	unsigned short int probabilidad);
 
 //funciones de seleccion y visualizacion		
 
 void resultados(char distribucion){
-	unsigned short int n;
-	unsigned short int probabilidad;
-	unsigned short int N;
-	unsigned short int r;
+	unsigned short int n, N, r, k, probabilidad;
 	float p; 
 	cout << "======================================= " << endl;
 	cout << "Valor de x: ";
@@ -110,6 +108,17 @@ void resultados(char distribucion){
 		cout << "Distribución Geométrica X~>G(" << p << ")" << endl;
 		cout << "P[X=" << probabilidad << "]" << " = "<< geometrica(p, probabilidad) << endl; 
 		break;
+	case '7': //Multinomial
+		cout << "Número de probabilidades asociadas: ";
+		cin >> k;
+		crearMultinomial(k);
+		for ( unsigned short int i = 0; i < k; i++ ) {
+			
+		}
+		
+		cout << "Distribución Multinomial X~>M(" << p << ")" << endl;
+		cout << "P[X=" << probabilidad << "]" << " = "<< geometrica(p, probabilidad) << endl; 
+		break;
 	break;
 	}
 	cout << "======================================= " << endl;
@@ -126,6 +135,7 @@ char menuIntro(){
 	 cout << "4.- Hipergeométrica." << endl;
 	 cout << "5.- Poisson." << endl;
 	 cout << "6.- Geométrica." << endl;
+	 cout << "7.- Multinomial." << endl;
 	 cout << "> ";
 	 cin >> distribucion;
 	 return distribucion;
