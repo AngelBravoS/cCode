@@ -20,15 +20,14 @@
 
 #include <iostream>
 
+double factorial(unsigned int n);
+double potencia(double numero, unsigned int potencia);
+double binomio(unsigned int n, unsigned int k);
 char menu();
-double factorial(double n);
-double potencia(double numero, unsigned short int potencia);
-double potenciaDouble(double numero, double potencia);
-double binomio(double a, double b);
 void calculo();
 unsigned int convierteDoubleEnInt (double doble);
 
-double factorial(double n) {
+double factorial(unsigned int n) {
 	if(n == 0) {
 		// Aseguramos que tenga salida siempre
 		return 1;
@@ -50,7 +49,7 @@ double potencia(double numero, unsigned int  potencia) {
 	return numero;
 }
 
-double binomio(double n, double k) {
+double binomio(unsigned int n, unsigned int k) {
 	double resultado;
 	if(k==0) {
 		resultado = 1;
@@ -79,7 +78,7 @@ char menu(){
 	}
 
 void calculo (){
-	double n, k;
+	unsigned int n, k;
 	switch (menu()) {
 		case '1' :
 			std::cout << "Factorial" << "\n";
@@ -94,7 +93,7 @@ void calculo (){
 			std::cout << "exponente = ";
 			std::cin >> k;
 			std::cout << n << "^" << k << " = " 
-			<< potencia(convierteDoubleEnInt(n), convierteDoubleEnInt(k)) 
+			<< potencia(n, k) 
 			<< "\n";
 			break;
 		case '3' :
