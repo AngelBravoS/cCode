@@ -72,47 +72,55 @@ char menu(){
 	std::cout << "1) Factorial" << "\n";
 	std::cout << "2) Potencia" << "\n";
 	std::cout << "3) Binomio de Newton" << "\n";
+	std::cout << "0) Para salir" << "\n";
 	std::cout << "> ";
 	std::cin >> opcion;
 	return opcion;
-	}
+}
 
 void calculo (){
 	unsigned int n, k;
-	switch (menu()) {
-		case '1' :
-			std::cout << "Factorial" << "\n";
-			std::cout << "n = ";
-			std::cin >> n;
-			std::cout << n << "! = " << factorial(n) << "\n";
-			break;
-		case '2' :
-			std::cout << "Potencia" << "\n";
-			std::cout << "número = ";
-			std::cin >> n;
-			std::cout << "exponente = ";
-			std::cin >> k;
-			std::cout << n << "^" << k << " = " 
-			<< potencia(n, k) 
-			<< "\n";
-			break;
-		case '3' :
-		 	std::cout << "Binomio de Newton" << "\n";
-			std::cout << "n = ";
-			std::cin >> n;
-			std::cout << "k = ";
-			std::cin >> k;
-			std::cout << "(" << n << ")" << "\n";
-			std::cout << "(" << k << ") = " << binomio(n, k) << "\n";
-			break;			
-		default :
-			std::cout << "Opción no válida" << "\n";
-			break;
-		}
-	std::cout << "saliendo del programa..." << "\n";
+	while(1) {
+		bool salir = false;
+		switch (menu()) {
+			case '0' :
+				salir = true;
+				std::cout << "saliendo del programa..." << "\n";
+				break;
+			case '1' :
+				std::cout << "Factorial" << "\n";
+				std::cout << "n = ";
+				std::cin >> n;
+				std::cout << n << "! = " << factorial(n) << "\n";
+				break;
+			case '2' :
+				std::cout << "Potencia" << "\n";
+				std::cout << "número = ";
+				std::cin >> n;
+				std::cout << "exponente = ";
+				std::cin >> k;
+				std::cout << n << "^" << k << " = " 
+				<< potencia(n, k) 
+				<< "\n";
+				break;
+			case '3' :
+				std::cout << "Binomio de Newton" << "\n";
+				std::cout << "n = ";
+				std::cin >> n;
+				std::cout << "k = ";
+				std::cin >> k;
+				std::cout << "(" << n << ")" << "\n";
+				std::cout << "(" << k << ") = " << binomio(n, k) << "\n";
+				break;			
+			default :
+				std::cout << "Opción no válida" << "\n";
+				break;
+			}
+			if (salir) break;
 	}
+}
 
 int main(){
 	calculo();
 	return 0;
-	}
+}
