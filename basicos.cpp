@@ -23,6 +23,7 @@
 double factorial(unsigned int n);
 double potencia(double numero, unsigned int potencia);
 double binomio(unsigned int n, unsigned int k);
+double e (unsigned int numIteraciones);
 char menu();
 void calculo();
 unsigned int convierteDoubleEnInt (double doble);
@@ -66,12 +67,24 @@ unsigned int convierteDoubleEnInt(double doble) {
 	return valorEntero;
 }
 
+double e (unsigned int n){
+	double resultado, producto;
+	resultado = 1;
+	producto = 1;
+	for (unsigned int i = 1; i <= n; i++) {
+		producto *= i;
+		resultado += 1/producto;
+	}
+	return resultado;
+}
+
 char menu(){
 	char opcion;
 	std::cout << "Cálculos matemáticos básicos" << "\n";
 	std::cout << "1) Factorial" << "\n";
 	std::cout << "2) Potencia" << "\n";
 	std::cout << "3) Binomio de Newton" << "\n";
+	std::cout << "4) Iteraciones para el número e" << "\n";
 	std::cout << "0) Para salir" << "\n";
 	std::cout << "> ";
 	std::cin >> opcion;
@@ -111,11 +124,19 @@ void calculo (){
 				std::cin >> k;
 				std::cout << "(" << n << ")" << "\n";
 				std::cout << "(" << k << ") = " << binomio(n, k) << "\n";
-				break;			
+				break;
+			case '4' :
+				std::cout << "Número e" << "\n";
+				std::cout << "Numero de iteracones para la aproximación = ";
+				std::cin >> n;
+				std::cout.precision(50);
+				std::cout << n << " iteraciones => e = " << e(n) << "\n";
+				break;				
 			default :
 				std::cout << "Opción no válida" << "\n";
 				break;
 			}
+			std::cout << "\n";
 			if (salir) break;
 	}
 }
