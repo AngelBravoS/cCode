@@ -20,7 +20,6 @@
 
 #include <iostream>
 #include <math.h>
-using namespace std;
 
 //Prototipos:
 //funciones de seleccion y visualizacion
@@ -30,9 +29,10 @@ void resultados(char distribucion);
 
 // funciones matematicas
 double factorial(double n);
-double potencia(double numero, int potencia);
+double potencia(double numero, unsigned int potencia);
 double binomio(double a, double b);
-unsigned long long int convierteDoubleEnInt (double_t doble);
+double e();
+unsigned int convierteDoubleEnInt (double_t doble);
 
 // funciones de distribuciones de probabilidad
 double bernouilli(float p, unsigned short int probabilidad);
@@ -44,100 +44,108 @@ double hipergeometrica(unsigned short int N, unsigned short int n,
 		unsigned short int r, unsigned short int probabilidad);	
 double poisson(float p, unsigned short int probabilidad);	
 double geometrica(float p, unsigned short int probabilidad);
-double multinomial(unsigned short int n, float p, 
-	unsigned short int probabilidad);
+double multinomial(unsigned int n, unsigned int k);
+double valor(unsigned int i, bool esValorXi);
 
 //funciones de seleccion y visualizacion		
 
 void resultados(char distribucion){
 	unsigned short int n, N, r, k, probabilidad;
 	float p; 
-	cout << "======================================= " << endl;
-	cout << "Valor de x: ";
-	cin >> probabilidad;
+	std::cout << "======================================= " << "\n";
 	switch (distribucion) {
 	case '1': //Bernouilli
-		cout << "Valor de p: ";
-		cin >> p;
-		cout << "Distribución Bernuilli X~>B("<< p << ")" << endl;
-		cout << "P[X=" << probabilidad << "]" << " = "<< 
-			bernouilli(p, probabilidad) << endl;
+		std::cout << "Valor de x: ";
+		std::cin >> probabilidad;
+		std::cout << "Valor de p: ";
+		std::cin >> p;
+		std::cout << "Distribución Bernuilli X~>B("<< p << ")" << "\n";
+		std::cout << "P[X=" << probabilidad << "]" << " = "<< 
+			bernouilli(p, probabilidad) << "\n";
 		break;
 	case '2': //Binomial
-		cout << "Valor de p: ";
-		cin >> p;
-		cout << "Valor de n: ";
-		cin >> n;
-		cout << "Distribución Binomial X~>B("<< n << ","<< 
-			p << ")" << endl;
-		cout << "P[X=" << probabilidad << "]" << " = "<< 
-			binomial(n, p, probabilidad) << endl; 
+		std::cout << "Valor de x: ";
+		std::cin >> probabilidad;
+		std::cout << "Valor de p: ";
+		std::cin >> p;
+		std::cout << "Valor de n: ";
+		std::cin >> n;
+		std::cout << "Distribución Binomial X~>B("<< n << ","<< 
+			p << ")" << "\n";
+		std::cout << "P[X=" << probabilidad << "]" << " = "<< 
+			binomial(n, p, probabilidad) << "\n"; 
 		break;
 	case '3': //Binomial negativa
-		cout << "Valor de p: ";
-		cin >> p;
-		cout << "Valor de n: ";
-		cin >> n;
-		cout << "Distribución Binomial negativa X~>BN("<< n << 
-			"," << p << ")" << endl;
-		cout << "P[X=" << probabilidad << "]" << " = "<< 
-			binomialNegativa(n, p, probabilidad) << endl; 
+		std::cout << "Valor de x: ";
+		std::cin >> probabilidad;
+		std::cout << "Valor de p: ";
+		std::cin >> p;
+		std::cout << "Valor de n: ";
+		std::cin >> n;
+		std::cout << "Distribución Binomial negativa X~>BN("<< n << 
+			"," << p << ")" << "\n";
+		std::cout << "P[X=" << probabilidad << "]" << " = "<< 
+			binomialNegativa(n, p, probabilidad) << "\n"; 
 		break;	
 	case '4': //Hipergeometrica
-		cout << "Parámetro N: ";
-		cin >> N;
-		cout << "Parámetro n: ";
-		cin >> n;
-		cout << "Parámetro r: ";
-		cin >> r;
-		cout << "Distribución Hipergeométrica X~>H("<< N << 
-			","<< n << "," << r << ")" << endl;
-		cout << "P[X=" << probabilidad << "]" << " = "<< 
-			hipergeometrica(N, n, r, probabilidad) << endl; 
+		std::cout << "Valor de x: ";
+		std::cin >> probabilidad;
+		std::cout << "Parámetro N: ";
+		std::cin >> N;
+		std::cout << "Parámetro n: ";
+		std::cin >> n;
+		std::cout << "Parámetro r: ";
+		std::cin >> r;
+		std::cout << "Distribución Hipergeométrica X~>H("<< N << 
+			","<< n << "," << r << ")" << "\n";
+		std::cout << "P[X=" << probabilidad << "]" << " = "<< 
+			hipergeometrica(N, n, r, probabilidad) << "\n"; 
 		break;	
 	case '5': //Poisson
-		cout << "Valor de lambda: ";
-		cin >> p;
-		cout << "Distribución Poisson X~>P("<< p << ")" << endl;
-		cout << "P[X=" << probabilidad << "]" << " = "<< 
-		poisson(p, probabilidad) << endl; 
+		std::cout << "Valor de x: ";
+		std::cin >> probabilidad;
+		std::	cout << "Valor de lambda: ";
+		std::cin >> p;
+		std::cout << "Distribución Poisson X~>P("<< p << ")" << "\n";
+		std::cout << "P[X=" << probabilidad << "]" << " = "<< 
+		poisson(p, probabilidad) << "\n"; 
 		break;
 	case '6': //Geometrica
-		cout << "Valor de p: ";
-		cin >> p;
-		cout << "Distribución Geométrica X~>G(" << p << ")" << endl;
-		cout << "P[X=" << probabilidad << "]" << " = "<< geometrica(p, probabilidad) << endl; 
+		std::cout << "Valor de x: ";
+		std::cin >> probabilidad;
+		std::cout << "Valor de p: ";
+		std::cin >> p;
+		std::cout << "Distribución Geométrica X~>G(" << p << ")" << "\n";
+		std::cout << "P[X=" << probabilidad << "]" << " = "<< geometrica(p, probabilidad) << "\n"; 
 		break;
 	case '7': //Multinomial
-		cout << "Número de probabilidades asociadas: ";
-		cin >> k;
-		crearMultinomial(k);
-		for ( unsigned short int i = 0; i < k; i++ ) {
-			
-		}
-		
-		cout << "Distribución Multinomial X~>M(" << p << ")" << endl;
-		cout << "P[X=" << probabilidad << "]" << " = "<< geometrica(p, probabilidad) << endl; 
+		std::cout << "Tamaño de la muestra: ";
+		std::cin >> n;
+		std::cout << "Número de probabilidades asociadas: ";
+		std::cin >> k;
+		std::cout << "Distribución Multinomial" << "\n";
+		std::cout << multinomial(n, k) << "\n"; 
+		//cout << "P[X=" << probabilidad << "]" << " = "<< multinomial(n, k) << endl; 
 		break;
 	break;
 	}
-	cout << "======================================= " << endl;
-	cout << endl;
+	std::cout << "======================================= " << "\n";
+	std::cout << "\n";
 }
 
 char menuIntro(){
 	char distribucion;
-	 cout << "Distribuciones de probabilidad discretas" << endl;
-	 cout << "Distribuciones a elegir:" << endl;
-	 cout << "1.- Bernouilli." << endl;
-	 cout << "2.- Binomial." << endl;
-	 cout << "3.- Binomial negativa." << endl;
-	 cout << "4.- Hipergeométrica." << endl;
-	 cout << "5.- Poisson." << endl;
-	 cout << "6.- Geométrica." << endl;
-	 cout << "7.- Multinomial." << endl;
-	 cout << "> ";
-	 cin >> distribucion;
+	 std::cout << "Distribuciones de probabilidad discretas" << "\n";
+	 std::cout << "Distribuciones a elegir:" << "\n";
+	 std::cout << "1.- Bernouilli." << "\n";
+	 std::cout << "2.- Binomial." << "\n";
+	 std::cout << "3.- Binomial negativa." << "\n";
+	 std::cout << "4.- Hipergeométrica." << "\n";
+	 std::cout << "5.- Poisson." << "\n";
+	 std::cout << "6.- Geométrica." << "\n";
+	 std::cout << "7.- Multinomial." << "\n";
+	 std::cout << "> ";
+	 std::cin >> distribucion;
 	 return distribucion;
 }
 
@@ -159,13 +167,13 @@ double factorial(double n) {
 	 }                          
 }
 
-double potencia(double numero, int potencia) {
+double potencia(double numero, unsigned int potencia) {
 	double temporal = numero;
 	if (potencia==0){
 		numero = 1;
 		}
 	else{
-		for (int x=1; x<potencia; x++) {
+		for (unsigned int x=1; x<potencia; x++) {
 			numero=numero*temporal;
 		}
 	}
@@ -183,9 +191,20 @@ double binomio(double n, double k){
 	}
 	return resultado;
 	}
+
+double e (){
+	double resultado, producto;
+	resultado = 1;
+	producto = 1;
+	for (unsigned int i = 1; i <= 17; i++) {
+		producto *= i;
+		resultado += 1/producto;
+	}
+	return resultado;
+}
 	
-unsigned long long int convierteDoubleEnInt (double_t doble) {
-	unsigned long long int valorEntero = static_cast<unsigned long long int>(doble);
+unsigned int convierteDoubleEnInt (double_t doble) {
+	unsigned int valorEntero = static_cast<unsigned int>(doble);
 	return valorEntero;
 }
 
@@ -214,7 +233,7 @@ double binomialNegativa(unsigned short int n, float p,
 	resultado = binomio (n+(x-1),x) * potencia(p,n) * potencia(1-p, x);
 	return resultado;
 	}	
-
+	
 double hipergeometrica(unsigned short int N, unsigned short int n, 
 						unsigned short int r, 
 						unsigned short int probabilidad){
@@ -233,9 +252,8 @@ double hipergeometrica(unsigned short int N, unsigned short int n,
 double poisson(float p, unsigned short int probabilidad){
 	double resultado;
 	float lambda = p;
-	double e = 2.7182818284590;
 	unsigned short int x=probabilidad;
-	resultado = (pow(e,-lambda)) * (pow(lambda,x) / factorial(x));
+	resultado = (pow(e(),-lambda)) * (pow(lambda,x) / factorial(x));
 	return resultado;
 }
 
@@ -247,6 +265,25 @@ double geometrica(float p, unsigned short int probabilidad){
 	return resultado;
 	}
 
+double valor(unsigned int i, bool esValorXi){
+	double valor;
+	esValorXi == true ? std::cout << "introduce X" << i << " = " : std::cout << "introduce P" << i << " = ";
+	std::cin >> valor;
+	return valor;
+	}
+
+double multinomial (unsigned int n, unsigned int k){
+	double resultado, xi, pi;
+	resultado = 1;
+	for (unsigned int i = 1; i <= k; i++) {
+		xi = valor(i, true);
+		pi = valor(i, false);
+		resultado *= 1/factorial(xi) * potencia(pi, convierteDoubleEnInt(xi));
+	}
+	resultado = factorial(n) * resultado;
+	return resultado;
+	}
+	
 int main() {
 	distribucionSeleccionada();
 	return 0;
