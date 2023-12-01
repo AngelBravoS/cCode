@@ -171,42 +171,42 @@ class MMIK : public Modelo {
 		}
 };
 
-class MMC : public Modelo {
+class MMS : public Modelo {
 	protected:
     double r;
-    unsigned int c;
-    bool nMayorC;
+    unsigned int s;
+    bool nMayorS;
 	public:
     //======== Constructores ========
-    MMC ();
-    MMC ( double lambda, double mu, unsigned int n, unsigned int c );
+    MMS ();
+    MMS ( double lambda, double mu, unsigned int n, unsigned int s );
     //======== Funciones específicas ========
     double p0 () {
       double resultado, primerSumando, segundoSumando;
 		  unsigned int i = 0;
-		  unsigned int fin = c-1;
+		  unsigned int fin = s-1;
       primerSumando = 0;
       segundoSumando = 0;
       while (i <= fin) {
-				primerSumando += potencia (ro,i)/factorial(i);
+				primerSumando += potencia (r,i)/factorial(i);
 				++i;
 			}
-      segundoSumando = (c*potencia(ro,c))/( factorial(c)*(c-ro));
+      segundoSumando = (s*potencia(r,s))/( factorial(s)*(s-r));
       resultado = 1/(primerSumando+segundoSumando);
       return resultado;
     }
     double pn () {
 			double resultado;
-    	if (nMayorC == false) {
+    	if (nMayorS == false) {
 				resultado = 1/factorial(n)*potencia(r,n)*p0();
     	} else {
-				resultado = 1/(potencia(c,n-c)*factorial(c))*potencia(r,n)*p0();
+				resultado = 1/(potencia(s,n-s)*factorial(s))*potencia(r,n)*p0();
     	}
 		return resultado;
     }
     double lq () {
         double resultado;
-			resultado = p0()*(ro*potencia(r,c))/(factorial(c)*potencia((1-ro),2));
+					resultado = p0()*(ro*potencia(r,s))/(factorial(s)*potencia((1-ro),2));
         return resultado;
     }
     double wq () {
@@ -294,19 +294,19 @@ MMIK::MMIK (double lambdaUsuario, double muUsuario, unsigned int nUsuario, unsig
 	r == 1 ? rIgual1 = true: rIgual1 = false;
 	}
 
-MMC::MMC () {}
+MMS::MMS () {}
 
-MMC::MMC ( double lambdaUsuario, double muUsuario, unsigned int nUsuario, unsigned int cUsuario ) {
+MMS::MMS ( double lambdaUsuario, double muUsuario, unsigned int nUsuario, unsigned int sUsuario ) {
     lambda = lambdaUsuario;
     mu = muUsuario;
     n = nUsuario;
-    c = cUsuario;
+    s = sUsuario;
+    ro = lambda/(s*mu);
     r = lambda/mu;
-    ro = r/c;
-    if ( ( 1 <= n ) && ( n < c ) ) {
-        nMayorC = false;
+    if ( ( 1 <= n ) && ( n < s ) ) {
+        nMayorS = false;
     } else {
-        nMayorC = true;
+        nMayorS = true;
     }
 }
 
@@ -320,7 +320,6 @@ MMINFINIT::MMINFINIT ( double lambdaUsuario, double muUsuario, unsigned int nUsu
 }
 
 
-
 //prototipos funcion main
 void menu();
 void recogerDatos();
@@ -330,14 +329,14 @@ void menu () {
 	std::cout << "Modelos de colas exponenciales: " << "\n";
 	std::cout << "1) M/M/1" << "\n";
 	std::cout << "2) M/M/1/K" << "\n";
-	std::cout << "3) M/M/C" << "\n";
+	std::cout << "3) M/M/S" << "\n";
 	std::cout << "4) M/M/Inf" << "\n";
 	std::cout << "> ";
 	}
 
 void recogeDatos () {
 	unsigned int modeloSeleccionado;
-	unsigned int nUsuario, cUsuario = 0;
+	unsigned int nUsuario, sUsuario;
 	double lambdaUsuario, muUsuario;
 	std::cin >> modeloSeleccionado;
 	std::cout << "Valor Lambda = ";
@@ -349,13 +348,13 @@ void recogeDatos () {
 			std::cout << "Valor k para calcular Pk -0 para ninguno- = ";
 			std::cin >> nUsuario;
 			std::cout << "Valor K = ";
-			std::cin >> cUsuario;
+			std::cin >> sUsuario;
 			break;
 		case 3 :
 			std::cout << "Valor n para calcular Pn -0 para ninguno- = ";
 			std::cin >> nUsuario;
-			std::cout << "Valor c = ";
-			std::cin >> cUsuario;
+			std::cout << "Valor s = ";
+			std::cin >> sUsuario;
 			break;
 		default :
 			std::cout << "Valor n para calcular Pn -0 para ninguno- = ";
@@ -363,10 +362,10 @@ void recogeDatos () {
 			break;
 		}
 	std::cout << "\n";
-	resultados(lambdaUsuario, muUsuario, nUsuario, cUsuario, modeloSeleccionado);
+	resultados(lambdaUsuario, muUsuario, nUsuario, sUsuario, modeloSeleccionado);
 	}
 
-void resultados(double lambdaUsuario, double muUsuario, unsigned int nUsuario, unsigned int cUsuario, unsigned int modeloSeleccionado) {
+void resultados(double lambdaUsuario, double muUsuario, unsigned int nUsuario, unsigned int sUsuario, unsigned int modeloSeleccionado) {
 	std::cout << " ======== Resultados ========" << '\n';
 	switch (modeloSeleccionado) {
 		case 1 : {
@@ -385,7 +384,7 @@ void resultados(double lambdaUsuario, double muUsuario, unsigned int nUsuario, u
 				}
 
 		case 2 : {
-				MMIK colaMMIK(lambdaUsuario, muUsuario, nUsuario, cUsuario);
+				MMIK colaMMIK(lambdaUsuario, muUsuario, nUsuario, sUsuario);
 				std::cout << "Valor P0" << " = " << colaMMIK.p0() << "\n";
 				std::cout << "Valor P" << nUsuario << " = " << colaMMIK.pn() << "\n";
 				std::cout << "Lq (Número medio de clientes en cola) = " << colaMMIK.lq() << "\n";
@@ -395,19 +394,23 @@ void resultados(double lambdaUsuario, double muUsuario, unsigned int nUsuario, u
 				break;
 				}
 		case 3 : {
-				MMC colaMMC(lambdaUsuario, muUsuario, nUsuario, cUsuario);
-				std::cout << "Valor P0" << " = " << colaMMC.p0() << "\n";
-				std::cout << "Valor P" << nUsuario << " = " << colaMMC.pn() << "\n";
-				std::cout << "Lq (Número medio de clientes en cola) = " << colaMMC.lq() << "\n";
-				std::cout << "L (Número medio de clientes en el sistema) = " << colaMMC.l() << "\n";
-				std::cout << "Wq (Tiempo medio de espera en cola) = " << colaMMC.wq() << "\n";
-				std::cout << "W (Tiempo medio de espera en el sistema) = " << colaMMC.w() << "\n";
+				MMS colaMMS(lambdaUsuario, muUsuario, nUsuario, sUsuario);
+				std::cout << "Valor P0" << " = " << colaMMS.p0() << "\n";
+				if (nUsuario != 0) {
+					std::cout << "Valor P" << nUsuario << " = " << colaMMS.pn() << "\n";
+				}
+				std::cout << "Lq (Número medio de clientes en cola) = " << colaMMS.lq() << "\n";
+				std::cout << "L (Número medio de clientes en el sistema) = " << colaMMS.l() << "\n";
+				std::cout << "Wq (Tiempo medio de espera en cola) = " << colaMMS.wq() << "\n";
+				std::cout << "W (Tiempo medio de espera en el sistema) = " << colaMMS.w() << "\n";
 				break;
 				}
 		case 4 : {
 				MMINFINIT colaMMINFINIT(lambdaUsuario, muUsuario, nUsuario);
 				std::cout << "Valor P0" << " = " << colaMMINFINIT.p0() << "\n";
-				std::cout << "Valor Pn" << " = " << colaMMINFINIT.pn() << "\n";
+				if (nUsuario != 0) {
+					std::cout << "Valor Pn" << " = " << colaMMINFINIT.pn() << "\n";
+				}
 				std::cout << "Lq (Número medio de clientes en cola) = " << colaMMINFINIT.lq() << "\n";
 				std::cout << "L (Número medio de clientes en el sistema) = " << colaMMINFINIT.l() << "\n";
 				std::cout << "Wq (Tiempo medio de espera en cola) = " << colaMMINFINIT.wq() << "\n";
