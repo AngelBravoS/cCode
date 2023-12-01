@@ -1,13 +1,14 @@
 #include <iostream>
-#include <vector>	
-
+	
 int main (){
 	int n;
-	std::vector<int> vector;
+	int *vector;
 	
 	std::cout << "Número de elementos: ";
 	std::cin >> n;
 	std::cout << "la variable X es de " << n << " elementos" << "\n";
+	
+	vector = new int [n];
 	
 	for ( int i = 0; i < n; i++ ) {
 		std::cout << "Elemento " << i + 1  << ": ";

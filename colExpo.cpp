@@ -172,35 +172,35 @@ class MMIK : public Modelo {
 };
 
 class MMC : public Modelo {
-    protected:
+	protected:
     double r;
     unsigned int c;
     bool nMayorC;
-    public:
+	public:
     //======== Constructores ========
     MMC ();
     MMC ( double lambda, double mu, unsigned int n, unsigned int c );
     //======== Funciones específicas ========
     double p0 () {
-        double resultado, primerSumando, segundoSumando;
+      double resultado, primerSumando, segundoSumando;
 		  unsigned int i = 0;
 		  unsigned int fin = c-1;
-        primerSumando = 0;
-        segundoSumando = 0;
-        while (i <= fin) {
-            primerSumando += potencia ( r, i ) / factorial ( i );
+      primerSumando = 0;
+      segundoSumando = 0;
+      while (i <= fin) {
+				primerSumando += potencia (ro,i)/factorial(i);
 				++i;
-		}
-        segundoSumando = ( c*potencia ( r,c ) ) / ( factorial ( c ) * ( c-r ) );
-        resultado = 1/(primerSumando+segundoSumando);
-        return resultado;
+			}
+      segundoSumando = (c*potencia(ro,c))/( factorial(c)*(c-ro));
+      resultado = 1/(primerSumando+segundoSumando);
+      return resultado;
     }
     double pn () {
-        double resultado;
+			double resultado;
     	if (nMayorC == false) {
-			resultado = 1/factorial(n)*potencia(r,n)*p0();
+				resultado = 1/factorial(n)*potencia(r,n)*p0();
     	} else {
-			resultado = 1/(potencia(c,n-c)*factorial(c))*potencia(r,n)*p0();
+				resultado = 1/(potencia(c,n-c)*factorial(c))*potencia(r,n)*p0();
     	}
 		return resultado;
     }
@@ -302,7 +302,7 @@ MMC::MMC ( double lambdaUsuario, double muUsuario, unsigned int nUsuario, unsign
     n = nUsuario;
     c = cUsuario;
     r = lambda/mu;
-    ro = lambda/ ( c*mu );
+    ro = r/c;
     if ( ( 1 <= n ) && ( n < c ) ) {
         nMayorC = false;
     } else {
